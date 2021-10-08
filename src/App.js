@@ -1,6 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { increament } from "./redux/features/counterSlice";
+import {
+  increament,
+  decreament,
+  increase,
+} from "./redux/features/counterSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
@@ -12,8 +16,8 @@ function App() {
       <h1>My Counter</h1>
       <h2>{stateData.value}</h2>
       <button onClick={() => dispatch(increament())}>+</button>
-      <button>-</button>
-      <button>increase</button>
+      <button onClick={() => dispatch(decreament())}>-</button>
+      <button onClick={() => dispatch(increase(10))}>increase by 10</button>
     </div>
   );
 }
