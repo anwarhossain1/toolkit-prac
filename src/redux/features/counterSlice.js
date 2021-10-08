@@ -1,10 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
+export const fetchData = createAsyncThunk(
+  "posts/fetchPosts",
+  async (payload) => {
+    const { data } = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
+    return data;
+  }
+);
 const counterSlice = createSlice({
   name: "posts",
-  initialState: {
-    value: 0,
-  },
+  initialState: {},
   reducers: {
     // increament: (state, action) => {
     //   state.value++;
@@ -15,6 +23,18 @@ const counterSlice = createSlice({
     // increase: (state, action) => {
     //   state.value += action.payload;
     // },
+  },
+  extraReducers: {
+    [fetchData.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchData.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+      state.loading = false;
+    },
+    [fetchData.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
