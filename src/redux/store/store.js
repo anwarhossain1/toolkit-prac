@@ -3,7 +3,7 @@ import counterSlice from "../features/counterSlice";
 
 const store = configureStore({
   reducer: {
-    counter: counterSlice,
+    posts: counterSlice,
   },
 });
 export default store;
